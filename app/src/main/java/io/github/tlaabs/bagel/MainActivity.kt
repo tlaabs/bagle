@@ -8,7 +8,9 @@ import android.widget.Toast
 import io.github.tlaabs.bagel.api.GithubRepos
 import io.github.tlaabs.bagel.api.GithubUser
 import io.github.tlaabs.bagel.api.Repo
+import io.github.tlaabs.bagel.view.SearchListAdapter
 import io.github.tlaabs.bbaaggeell.api.NetworkModule
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +18,9 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private val DEFAULT_PATH = "testapp://repos/"
+
+    private val adapter = SearchListAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,8 +49,16 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
                     val result = response.body()
                     Log.d("devsim","msg : ${result?.size}")
+                    adapter.addItem(result)
                 }
             })
+
+            initAdapter()
+
         }
+    }
+
+    fun initAdapter() {
+        listView.adapter = adapter
     }
 }
