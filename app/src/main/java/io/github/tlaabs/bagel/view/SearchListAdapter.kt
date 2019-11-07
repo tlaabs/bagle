@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.tlaabs.bagel.R
 import io.github.tlaabs.bagel.api.Repo
 import kotlinx.android.synthetic.main.repo_item.view.*
+import java.util.*
 import java.util.zip.Inflater
 
 
@@ -35,6 +36,7 @@ class SearchListAdapter : RecyclerView.Adapter<SearchListAdapter.SearchViewHolde
     fun addItem(newItems: List<Repo>?) {
         if(newItems != null) {
             items.addAll(newItems)
+            Sort.sort(items)
             notifyDataSetChanged()
         }
     }
